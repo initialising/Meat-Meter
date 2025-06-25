@@ -2,17 +2,20 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Meat Meter</title>
+  <!-- Google Fonts: Playfair Display (für Überschriften), Lato (für Fließtext) -->
+  <link href="https://fonts.googleapis.com/css2?family=Lato&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="menu-card">
     <div class="tabs">
-      <button onclick="showPage(0)" style="background-color: #f88;">Ankündigung</button>
-      <button onclick="showPage(1)" style="background-color: #8af;">Bestellung</button>
-      <button onclick="showPage(2)" style="background-color: #8f8;">Statistik</button>
-      <button onclick="showPage(3)" style="background-color: #ff8;">Abzeichen</button>
+      <button onclick="showPage(0)" title="Menüfront">📋</button>
+      <button onclick="showPage(1)" title="Ankündigungen">📣</button>
+      <button onclick="showPage(2)" title="Bestellung">🧾</button>
+      <button onclick="showPage(3)" title="Statistik">📊</button>
+      <button onclick="showPage(4)" title="Abzeichen">🏅</button>
     </div>
 
     <div class="content" id="page-content"></div>
@@ -26,4 +29,5 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
