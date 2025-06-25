@@ -28,10 +28,21 @@ const pages = [
 function showPage(index) {
   currentPage = index;
 
-  if (index === 4) {
-    zeigeStatistik();
+  const menuCard = document.querySelector('.menu-card');
+
+  if (index === 1) {
+    // Leder-Cover aktivieren
+    menuCard.classList.add('leather-cover');
+    document.getElementById("page-content").innerHTML = `<div>Menü</div>`;
   } else {
-    document.getElementById("page-content").innerHTML = pages[index];
+    // Leder-Cover entfernen
+    menuCard.classList.remove('leather-cover');
+
+    if (index === 4) {
+      zeigeStatistik();
+    } else {
+      document.getElementById("page-content").innerHTML = pages[index];
+    }
   }
 
   updateTabs();

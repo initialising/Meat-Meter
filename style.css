@@ -15,6 +15,7 @@ body {
   width: 380px; /* etwas größer als .menu-card */
   height: 560px;
   padding: 10px; /* Randdicke */
+  background-color: #5a3825;
   background-image: url('https://www.transparenttextures.com/patterns/leather1.png');
   background-repeat: repeat;
   box-sizing: border-box;
@@ -23,6 +24,21 @@ body {
   align-items: center;
   /* Optional Schatten für Tiefe */
   box-shadow: 0 0 15px rgba(0,0,0,0.15);
+}
+
+.menu-card.leather-cover {
+  background-image: url('https://www.transparenttextures.com/patterns/leather1.png');
+  background-repeat: repeat;
+  background-color: #5a3825; /* Lederbraun dunkler */
+  color: #f5f0e6; /* heller Text für guten Kontrast */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  font-weight: bold;
+  font-family: 'Georgia', serif;
+  padding: 0; /* padding weg, damit Text wirklich zentriert */
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.3); /* leichter innerer Schatten */
 }
 
 /* Menükarte selbst mit Papierhintergrund */
