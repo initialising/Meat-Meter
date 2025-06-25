@@ -1,61 +1,102 @@
-let currentPage = 0;
+let currentPage = 1; // Start auf Menü-Front
 
-// Daten aus localStorage laden oder Default-Werte
-const meatStats = JSON.parse(localStorage.getItem("meatStats")) || {
-  beef: 0,
-  pork: 0,
-  chicken: 0,
-  fish: 0
+let tierZaehler = {
+  Rind: 0,
+  Schwein: 0,
+  Huhn: 0
 };
 
 const pages = [
-  // 0: Ankündigung
-  `<h2>📣 Ankündigungen & Events</h2>
-   <ul>
-    <li><strong>NEU:</strong> CO₂-Zahlung aktiv! 🌍</li>
-    <li><strong>Event:</strong> Veggie-Woche startet am Montag 🥦</li>
-    <li><strong>Update:</strong> Tierzähler online 🐄🐔</li>
-   </ul>`,
-  
-  // 1: Bestellung (interaktives Formular)
-  `<h2>🧾 Bestellung</h2>
-   <label for="meatInput">Menge Fleisch (in g):</label><br />
-   <input type="number" id="meatInput" placeholder="z.B. 150" /><br /><br />
-   
-   <label for="meatType">Fleischart:</label><br />
-   <select id="meatType">
-     <option value="beef">Rind</option>
-     <option value="pork">Schwein</option>
-     <option value="chicken">Huhn</option>
-     <option value="fish">Fisch</option>
-   </select><br /><br />
-   
-   <button onclick="addMeat()">Eintragen</button>
-   <p id="order-msg" style="color:green;"></p>`,
-  
-  // 2: Statistik (wird dynamisch aktualisiert)
-  `<h2>📊 Statistik</h2>
-   <div id="stats">Hier erscheinen deine Fleischverbrauchs-Statistiken</div>`,
-  
-  // 3: Abzeichen (Platzhalter)
-  `<h2>🏅 Abzeichen</h2>
-   <p>Hier erscheinen später deine Erfolge!</p>`
+  ``, // Seite 0 leer
+  `<h1 style="text-align:center; font-weight: normal; font-size: 2.5rem; margin-top: 180px;">Menü</h1>`,
+  `<h2>Ankündigungen & Events</h2>
+  <ul>
+    <li><strong>NEU:</strong> CO₂-Zahlung aktiv.</li>
+    <li><strong>Event:</strong> Veggie-Woche startet am Montag.</li>
+    <li><strong>Update:</strong> Tierzähler online.</li>
+  </ul>`,
+  `<h2>Bestellung</h2>
+  <label for="dish-input">Fleischart (Rind, Schwein, Huhn):</label><br />
+  <input id="dish-input" type="text" placeholder="z.B. Rind" autocomplete="off" /><br /><br />
+  <button onclick="bestellungSpeichern()">Eintragen</button>
+  <p id="order-msg" style="color: green; margin-top: 10px;"></p>`,
+  ``, // Statistik dynamisch
+  `<h2>Abzeichen</h2>
+  <p>Hier erscheinen später deine Erfolge!</p>`
 ];
 
 function showPage(index) {
   currentPage = index;
-  document.getElementById("page-content").innerHTML = pages[index];
-  
-  // Wenn Statistik-Seite -> Werte anzeigen
-  if (index === 2) {
-    updateStats();
+
+  if (index === 4) {
+    zeigeStatistik();
+  } else {
+    document.getElementById("page-content").innerHTML = pages[index];
   }
-  
-  // Auf Bestellung-Seite Eingabefelder zurücksetzen und Nachricht löschen
-  if (index === 1) {
-    document.getElementById("meatInput").value = "";
-    document.getElementById("order-msg").textContent = "";
+
+  updateTabs();
+}
+
+function bestellungSpeichern() {
+  const input = document.getElementById('dish-input');
+  const msg = document.getElementById('order-msg');
+  const fleisch = input.value.trim().toLowerCase();
+
+  if (!fleisch) {
+    msg.style.color = 'red';
+    msg.textContent = 'Bitte gib eine Fleischart ein.';
+    return;
   }
+
+  if (fleisch === 'rind') {
+    tierZaehler.Rind++;
+  } else if (fleisch === 'schwein') {
+    tierZaehler.Schwein++;
+  } else if (fleisch === 'huhn') {
+    tierZaehler.Huhn++;
+  } else {
+    msg.style.color = 'red';
+    msg.textContent = 'Nur Rind, Schwein oder Huhn sind erlaubt.';
+    return;
+  }
+
+  speichereDaten();
+
+  msg.style.color = 'green';
+  msg.textContent = `Bestellung für "${input.value.trim()}" wurde gespeichert!`;
+  input.value = '';
+}
+
+function zeigeStatistik() {
+  let html = `<h2>Statistik</h2>
+  <p>Hier ist deine Fleisch-Tierzählung:</p>
+  <ul>
+    <li>Rinder: ${tierZaehler.Rind}</li>
+    <li>Schweine: ${tierZaehler.Schwein}</li>
+    <li>Hühner: ${tierZaehler.Huhn}</li>
+  </ul>
+  <button onclick="resetStatistik()" style="background-color:#c44; color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer;">Statistik zurücksetzen</button>`;
+  
+  document.getElementById("page-content").innerHTML = html;
+}
+
+function resetStatistik() {
+  if (confirm('Möchtest du die Statistik wirklich zurücksetzen?')) {
+    tierZaehler = { Rind: 0, Schwein: 0, Huhn: 0 };
+    speichereDaten();
+    zeigeStatistik();
+  }
+}
+
+function ladeDaten() {
+  const data = localStorage.getItem('tierZaehler');
+  if (data) {
+    tierZaehler = JSON.parse(data);
+  }
+}
+
+function speichereDaten() {
+  localStorage.setItem('tierZaehler', JSON.stringify(tierZaehler));
 }
 
 function nextPage() {
@@ -65,49 +106,36 @@ function nextPage() {
 }
 
 function prevPage() {
-  if (currentPage > 0) {
+  if (currentPage > 1) {
     showPage(currentPage - 1);
   }
 }
 
-function addMeat() {
-  const inputEl = document.getElementById("meatInput");
-  const amount = parseFloat(inputEl.value);
-  const type = document.getElementById("meatType").value;
-  const msgEl = document.getElementById("order-msg");
+function updateTabs() {
+  const tabContainer = document.querySelector('.tabs');
+  const tabInfos = [
+    { page: 2, emoji: '📣', title: 'Ankündigung' },
+    { page: 3, emoji: '🧾', title: 'Bestellung' },
+    { page: 4, emoji: '📊', title: 'Statistik' },
+    { page: 5, emoji: '🏅', title: 'Abzeichen' }
+  ];
 
-  if (isNaN(amount) || amount <= 0) {
-    alert("Bitte gib eine gültige Menge ein.");
-    return;
-  }
+  tabContainer.innerHTML = '';
 
-  // Menge addieren
-  meatStats[type] += amount;
-  localStorage.setItem("meatStats", JSON.stringify(meatStats));
+  tabInfos.forEach(tab => {
+    const btn = document.createElement('button');
+    btn.textContent = tab.emoji;
+    btn.title = tab.title;
+    btn.onclick = () => showPage(tab.page);
+    if (currentPage === tab.page) btn.classList.add('active-tab');
+    tabContainer.appendChild(btn);
+  });
 
-  // Nachricht anzeigen
-  msgEl.textContent = `Erfolg! ${amount}g ${type} wurde eingetragen.`;
-
-  // Eingabefeld leeren
-  inputEl.value = "";
+  // Tabs ganz ausblenden auf Seite 1
+  tabContainer.style.display = (currentPage === 1) ? 'none' : 'flex';
 }
 
-function updateStats() {
-  const output = document.getElementById("stats");
-
-  const animals = {
-    beef: meatStats.beef / 250000,
-    pork: meatStats.pork / 60000,
-    chicken: meatStats.chicken / 1500,
-    fish: meatStats.fish / 1500
-  };
-
-  output.innerHTML = `
-    <p>Rind: ${(meatStats.beef / 1000).toFixed(1)} kg (${animals.beef.toFixed(2)} Tiere)</p>
-    <p>Schwein: ${(meatStats.pork / 1000).toFixed(1)} kg (${animals.pork.toFixed(2)} Tiere)</p>
-    <p>Huhn: ${(meatStats.chicken / 1000).toFixed(1)} kg (${animals.chicken.toFixed(2)} Tiere)</p>
-    <p>Fisch: ${(meatStats.fish / 1000).toFixed(1)} kg (${animals.fish.toFixed(2)} Tiere)</p>
-  `;
-}
-
-window.onload = () => showPage(0);
+window.onload = () => {
+  ladeDaten();
+  showPage(currentPage);
+};

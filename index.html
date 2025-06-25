@@ -1,29 +1,21 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Meat Meter</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet" />
-</head>
-<body>
-  <div class="menu-card">
-    <div class="tabs" id="tabs-container">
-      <!-- Tabs werden dynamisch vom Script gefüllt -->
-    </div>
+<body onload="startApp()">
+  <div class="menu-card-container">
+    <div class="menu-card">
+      <div id="tabs-container" class="tabs"></div>
 
-    <div class="content" id="page-content"></div>
+      <div class="content" id="page-content"></div>
 
-    <div class="nav-buttons">
-      <button onclick="prevPage()">⬅️</button>
-      <button onclick="nextPage()">➡️</button>
+      <div class="nav-buttons">
+        <button onclick="prevPage()">⬅️</button>
+        <button onclick="nextPage()">➡️</button>
+      </div>
     </div>
   </div>
 
   <script src="script.js"></script>
 </body>
-</html>
+
+
 
 
 
