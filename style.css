@@ -2,11 +2,12 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f5f0e6;
-  font-family: sans-serif;
+  font-family: 'Playfair Display', serif;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  color: #333;
 }
 
 .menu-card {
@@ -18,32 +19,49 @@ body {
   box-shadow: 0 0 20px rgba(0,0,0,0.1);
   overflow: hidden;
   position: relative;
-  padding: 20px;
+  padding: 20px 60px 20px 20px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 .tabs {
   position: absolute;
-  right: 0;
-  top: 80px;
+  right: 10px;
+  top: 60px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  padding-right: 5px;
+  gap: 12px;
 }
 
 .tabs button {
-  font-size: 12px;
-  padding: 5px;
-  border-radius: 8px 0 0 8px;
+  font-size: 22px;
+  padding: 6px 8px;
+  border-radius: 12px 0 0 12px;
   border: none;
   cursor: pointer;
+  background-color: #e3d7b8;
+  color: #4a3e1b;
+  transition: background-color 0.3s;
+  width: 40px;
+  text-align: center;
+  line-height: 1;
+  user-select: none;
+}
+
+.tabs button:hover,
+.tabs button:focus {
+  background-color: #cbbf91;
+  outline: none;
 }
 
 .content {
   margin-top: 40px;
   overflow-y: auto;
-  height: 400px;
+  flex-grow: 1;
+  padding-right: 10px;
+  font-size: 18px;
+  line-height: 1.4;
 }
 
 .nav-buttons {
@@ -55,6 +73,17 @@ body {
   justify-content: space-between;
 }
 
-input, select, button {
-  font-size: 14px;
+.nav-buttons button {
+  font-size: 20px;
+  background-color: #a1884f;
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.nav-buttons button:hover {
+  background-color: #7c6e39;
 }
