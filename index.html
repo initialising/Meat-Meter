@@ -4,18 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Meat Meter</title>
-  <!-- Google Fonts: Playfair Display (für Überschriften), Lato (für Fließtext) -->
-  <link href="https://fonts.googleapis.com/css2?family=Lato&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet" />
 </head>
 <body>
   <div class="menu-card">
-    <div class="tabs">
-      <button onclick="showPage(0)" title="Menüfront">📋</button>
-      <button onclick="showPage(1)" title="Ankündigungen">📣</button>
-      <button onclick="showPage(2)" title="Bestellung">🧾</button>
-      <button onclick="showPage(3)" title="Statistik">📊</button>
-      <button onclick="showPage(4)" title="Abzeichen">🏅</button>
+    <div class="tabs" id="tabs-container">
+      <!-- Tabs werden dynamisch vom Script gefüllt -->
     </div>
 
     <div class="content" id="page-content"></div>
@@ -29,5 +24,6 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
