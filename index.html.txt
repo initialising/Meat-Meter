@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Meat Meter</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="menu-card">
+    <div class="tabs">
+      <button onclick="showPage(0)" style="background-color: #f88;">Ankündigung</button>
+      <button onclick="showPage(1)" style="background-color: #8af;">Bestellung</button>
+      <button onclick="showPage(2)" style="background-color: #8f8;">Statistik</button>
+      <button onclick="showPage(3)" style="background-color: #ff8;">Abzeichen</button>
+    </div>
+
+    <div class="content" id="page-content"></div>
+
+    <div class="nav-buttons">
+      <button onclick="prevPage()">⬅️</button>
+      <button onclick="nextPage()">➡️</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
