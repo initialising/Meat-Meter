@@ -7,12 +7,18 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="menu-container">
-    <div class="tabs" id="tabs-container"></div>
-    <div id="page-content" class="page"></div>
-    <div class="nav-buttons">
-      <button onclick="prevPage()">←</button>
-      <button onclick="nextPage()">→</button>
+  <div class="menu-card-container">
+    <div class="menu-card">
+      <div class="tabs" id="tabs-container">
+        <!-- Tabs werden dynamisch per JS eingefügt -->
+      </div>
+
+      <div class="content" id="page-content"></div>
+
+      <div class="nav-buttons">
+        <button onclick="prevPage()">⬅️</button>
+        <button onclick="nextPage()">➡️</button>
+      </div>
     </div>
   </div>
 
