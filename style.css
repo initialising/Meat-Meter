@@ -10,17 +10,36 @@ body {
   color: #333;
 }
 
+/* Container für die Karte mit Leder-Rand */
+.menu-card-container {
+  width: 380px; /* etwas größer als .menu-card */
+  height: 560px;
+  padding: 10px; /* Randdicke */
+  background-image: url('https://www.transparenttextures.com/patterns/leather1.png');
+  background-repeat: repeat;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Optional Schatten für Tiefe */
+  box-shadow: 0 0 15px rgba(0,0,0,0.15);
+}
+
+/* Menükarte selbst mit Papierhintergrund */
 .menu-card {
   width: 360px;
   height: 540px;
+  background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+  background-repeat: repeat;
   background-color: #fdf6e3;
-  border: 1px solid #e7e4d8;
-  border-radius: 20px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  /* Kein Rand oder Rundungen mehr */
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
   overflow: hidden;
   position: relative;
-  padding: 20px 60px 20px 20px;
+  padding: 20px 60px 20px 20px; /* Rechts Platz für Tabs */
   box-sizing: border-box;
+  font-family: 'Georgia', serif;
+  color: #4b3a1b;
   display: flex;
   flex-direction: column;
 }
@@ -53,6 +72,11 @@ body {
 .tabs button:focus {
   background-color: #cbbf91;
   outline: none;
+}
+
+.tabs button.active-tab {
+  background-color: #cbbf91;
+  font-weight: bold;
 }
 
 .content {
