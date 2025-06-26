@@ -26,6 +26,7 @@ body {
   box-shadow: 0 0 15px rgba(0,0,0,0.15);
 }
 
+/* Stil für die Lederkarte */
 .menu-card.leather-cover {
   background-image: url('https://www.transparenttextures.com/patterns/leather1.png');
   background-repeat: repeat;
@@ -36,56 +37,37 @@ body {
   font-family: 'Cinzel', serif;
   font-size: 3rem;
   font-weight: 700;
-  display: block; /* wichtig: nicht flex hier */
+  display: block;
   position: relative;
-  border: none
+  border: none;
 }
 
-/* goldene Ecken */
-.menu-card.leather-cover::before,
-.menu-card.leather-cover::after,
-.menu-card.leather-cover > .corner-top-left,
-.menu-card.leather-cover > .corner-top-right,
-.menu-card.leather-cover > .corner-bottom-left,
-.menu-card.leather-cover > .corner-bottom-right {
-  content: '';
+/* Eckrahmen – oben rechts */
+.corner-frame-top-right {
   position: absolute;
+  top: -2px;
+  right: -2px;
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
-  box-shadow:
-    0 1px 3px rgba(0,0,0,0.4),
-    inset 0 0 8px rgba(255, 215, 0, 0.7);
-  border-radius: 8px;
-  z-index: 10;
+  border-top: 4px solid #d4af37;
+  border-right: 4px solid #d4af37;
+  border-top-right-radius: 8px;
+  z-index: 20;
+  pointer-events: none;
 }
 
-/* obere linke Ecke */
-.menu-card.leather-cover > .corner-top-left {
-  top: 10px;
-  left: 10px;
-  clip-path: polygon(0 0, 100% 0, 0 100%);
-}
-
-/* obere rechte Ecke */
-.menu-card.leather-cover > .corner-top-right {
-  top: 10px;
-  right: 10px;
-  clip-path: polygon(100% 0, 100% 100%, 0 0);
-}
-
-/* untere linke Ecke */
-.menu-card.leather-cover > .corner-bottom-left {
-  bottom: 10px;
-  left: 10px;
-  clip-path: polygon(0 100%, 100% 100%, 0 0);
-}
-
-/* untere rechte Ecke */
-.menu-card.leather-cover > .corner-bottom-right {
-  bottom: 10px;
-  right: 10px;
-  clip-path: polygon(100% 100%, 100% 0, 0 100%);
+/* Eckrahmen – unten rechts */
+.corner-frame-bottom-right {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 40px;
+  height: 40px;
+  border-bottom: 4px solid #d4af37;
+  border-right: 4px solid #d4af37;
+  border-bottom-right-radius: 8px;
+  z-index: 20;
+  pointer-events: none;
 }
 
 .menu-title-wrapper {
