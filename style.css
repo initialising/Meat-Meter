@@ -10,11 +10,12 @@ body {
   color: #333;
 }
 
-/* Container für die Karte mit Leder-Rand */
+/* Container mit goldenem Rahmen außen */
 .menu-card-container {
-  width: 380px; /* etwas größer als .menu-card */
+  position: relative;
+  width: 380px;
   height: 560px;
-  padding: 10px; /* Randdicke */
+  padding: 10px;
   background-color: #5a3825;
   background-image: url('https://www.transparenttextures.com/patterns/leather1.png');
   background-repeat: repeat;
@@ -22,11 +23,30 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Optional Schatten für Tiefe */
   box-shadow: 0 0 15px rgba(0,0,0,0.15);
 }
 
-/* Stil für die Lederkarte */
+/* Goldene Ecken außen */
+.corner-piece {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.corner-piece.top-right {
+  top: -5px;
+  right: -5px;
+}
+
+.corner-piece.bottom-right {
+  bottom: -5px;
+  right: -5px;
+  transform: rotate(180deg);
+}
+
+/* Lederkarte */
 .menu-card.leather-cover {
   background-image: url('https://www.transparenttextures.com/patterns/leather1.png');
   background-repeat: repeat;
@@ -42,61 +62,17 @@ body {
   border: none;
 }
 
-/* Eckrahmen – oben rechts */
-.corner-frame-top-right {
-  position: absolute;
-  top: -2px;
-  right: -2px;
-  width: 40px;
-  height: 40px;
-  border-top: 4px solid #d4af37;
-  border-right: 4px solid #d4af37;
-  border-top-right-radius: 8px;
-  z-index: 20;
-  pointer-events: none;
-}
-
-/* Eckrahmen – unten rechts */
-.corner-frame-bottom-right {
-  position: absolute;
-  bottom: -2px;
-  right: -2px;
-  width: 40px;
-  height: 40px;
-  border-bottom: 4px solid #d4af37;
-  border-right: 4px solid #d4af37;
-  border-bottom-right-radius: 8px;
-  z-index: 20;
-  pointer-events: none;
-}
-
-.menu-title-wrapper {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.menu-title {
-  text-align: center;
-}
-
-/* Menükarte selbst mit Papierhintergrund */
+/* Papierkarte */
 .menu-card {
   width: 360px;
   height: 540px;
   background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
   background-repeat: repeat;
   background-color: #fdf6e3;
-  /* Kein Rand oder Rundungen mehr */
   box-shadow: 0 0 15px rgba(0,0,0,0.1);
   overflow: hidden;
   position: relative;
-  padding: 20px 60px 20px 20px; /* Rechts Platz für Tabs */
+  padding: 20px 60px 20px 20px;
   box-sizing: border-box;
   font-family: 'Playfair Display', serif;
   color: #4b3a1b;
