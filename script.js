@@ -9,15 +9,15 @@ let tierZaehler = {
 const pages = [
   ``, // Seite 0 leer
   `<h1 style="text-align:center; font-weight: normal; font-size: 2.5rem; margin-top: 180px;">Menü</h1>`,
-  `<h2>Ankündigungen & Events</h2>
+  `<h2>Neuigkeiten</h2>
   <ul>
-    <li><strong>NEU:</strong> CO₂-Zahlung aktiv.</li>
-    <li><strong>Event:</strong> Veggie-Woche startet am Montag.</li>
-    <li><strong>Update:</strong> Tierzähler online.</li>
+    <li><strong>NEU:</strong> CO₂-Zahlung </li>
+    <li><strong>Event:</strong> Rind gibt 2x Punkte </li>
+    <li><strong>Update:</strong> Abzeichen in Bearbeitung </li>
   </ul>`,
   `<h2>Bestellung</h2>
-  <label for="dish-input">Fleischart (Rind, Schwein, Huhn):</label><br />
-  <input id="dish-input" type="text" placeholder="z.B. Rind" autocomplete="off" /><br /><br />
+  <label for="dish-input">Fleischart:</label><br />
+  <input id="dish-input" type="text" placeholder="in Gramm" autocomplete="off" /><br /><br />
   <button onclick="bestellungSpeichern()">Eintragen</button>
   <p id="order-msg" style="color: green; margin-top: 10px;"></p>`,
   ``, // Statistik dynamisch
@@ -80,7 +80,7 @@ function bestellungSpeichern() {
 
 function zeigeStatistik() {
   let html = `<h2>Statistik</h2>
-  <p>Hier ist deine Fleisch-Tierzählung:</p>
+  <p>Anzahl von dir gegessener Tiere</p>
   <ul>
     <li>Rinder: ${tierZaehler.Rind}</li>
     <li>Schweine: ${tierZaehler.Schwein}</li>
@@ -125,7 +125,7 @@ function prevPage() {
 function updateTabs() {
   const tabContainer = document.querySelector('.tabs');
   const tabInfos = [
-    { page: 2, emoji: '📣', title: 'Ankündigung' },
+    { page: 2, emoji: '📣', title: 'Neuigkeiten' },
     { page: 3, emoji: '🧾', title: 'Bestellung' },
     { page: 4, emoji: '📊', title: 'Statistik' },
     { page: 5, emoji: '🏅', title: 'Abzeichen' }

@@ -63,7 +63,7 @@ body {
 
 .tabs {
   position: absolute;
-  right: 10px;
+  right: 0px;
   top: 60px;
   display: flex;
   flex-direction: column;
