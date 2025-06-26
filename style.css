@@ -29,17 +29,17 @@ body {
 .menu-card.leather-cover {
   background-image: url('https://www.transparenttextures.com/patterns/leather1.png');
   background-repeat: repeat;
-  background-color: #5a3825; /* Lederbraun dunkler */
-  color: #f5f0e6; /* heller Text für guten Kontrast */
+  background-color: #5a3825; /* Lederbraun */
+  color: #f5f0e6;
   display: flex;
   justify-content: center;
-  padding-top: 140px; /* Abstand vertikal von oben */ 
-  align-items: flex-start;
-  font-family: 'Cinzel', serif;
+  align-items: center; /* zentriert vertikal */
   font-size: 3rem;
+  font-family: 'Cinzel', serif;
   font-weight: 700;
-  padding: 0; /* padding weg, damit Text wirklich zentriert */
-  box-shadow: inset 0 0 15px rgba(0,0,0,0.3); /* leichter innerer Schatten */
+  padding: 0;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.3);
+  text-align: center;
 }
 
 /* Menükarte selbst mit Papierhintergrund */

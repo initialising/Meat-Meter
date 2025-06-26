@@ -33,7 +33,7 @@ function showPage(index) {
   if (index === 1) {
     // Leder-Cover aktivieren
     menuCard.classList.add('leather-cover');
-    document.getElementById("page-content").innerHTML = `<div>Menü</div>`;
+    document.getElementById("page-content").innerHTML = `<div style="width: 100%;">MENÜ</div>`;
   } else {
     // Leder-Cover entfernen
     menuCard.classList.remove('leather-cover');
