@@ -24,13 +24,23 @@ const pages = [
     <li><strong>Update:</strong> Abzeichen in Bearbeitung </li>
   </ul>`,
   `<h2>Bestellung</h2>
-  <label for="dish-input">Fleischart (manuell):</label><br />
-  <input id="dish-input" type="text" placeholder="in Gramm (z. B. Rind)" autocomplete="off" /><br /><br />
-  <button onclick="bestellungSpeichern()">Eintragen</button>
+    <label for="menge-input">Menge in Gramm:</label><br />
+  <input id="menge-input" type="number" placeholder="z. B. 250" /><br /><br />
+  
+  <label for="fleischart-auswahl">Fleischart:</label><br />
+  <select id="fleischart-auswahl">
+    <option value="">– bitte wählen –</option>
+    <option value="Rind">Rind</option>
+    <option value="Schwein">Schwein</option>
+    <option value="Huhn">Huhn</option>
+    <option value="Fisch">Fisch</option>
+  </select><br /><br />
+  
+  <button onclick="manuelleBestellung()">Eintragen</button>
 
   <hr style="margin: 20px 0;" />
 
-  <h3>🍽 Gericht wählen</h3>
+  <h3>Gericht wählen</h3>
   <select id="gericht-auswahl">
     <option value="">– bitte wählen –</option>
     ${Object.keys(gerichte).map(name => `<option value="${name}">${name}</option>`).join('')}
@@ -66,33 +76,33 @@ function showPage(index) {
   updateTabs();
 }
 
-function bestellungSpeichern() {
-  const input = document.getElementById('dish-input');
+function manuelleBestellung() {
+  const gramm = parseFloat(document.getElementById('menge-input').value);
+  const typ = document.getElementById('fleischart-auswahl').value;
   const msg = document.getElementById('order-msg');
-  const fleisch = input.value.trim().toLowerCase();
 
-  if (!fleisch) {
+  if (!typ || isNaN(gramm) || gramm <= 0) {
     msg.style.color = 'red';
-    msg.textContent = 'Bitte gib eine Fleischart ein.';
+    msg.textContent = 'Bitte gib gültige Werte ein.';
     return;
   }
 
-  if (fleisch === 'rind') {
-    tierZaehler.Rind += 1;
-  } else if (fleisch === 'schwein') {
-    tierZaehler.Schwein += 1;
-  } else if (fleisch === 'huhn') {
-    tierZaehler.Huhn += 1;
-  } else {
-    msg.style.color = 'red';
-    msg.textContent = 'Nur Rind, Schwein oder Huhn sind erlaubt.';
-    return;
-  }
+  const tiereProGramm = {
+    Rind: 1 / 250000,
+    Schwein: 1 / 60000,
+    Huhn: 1 / 1500,
+    Fisch: 1 / 1500
+  };
+
+  const tiere = gramm * (tiereProGramm[typ] || 0);
+  if (!tierZaehler[typ]) tierZaehler[typ] = 0;
+  tierZaehler[typ] += tiere;
 
   speichereDaten();
   msg.style.color = 'green';
-  msg.textContent = `Bestellung für "${input.value}" wurde gespeichert!`;
-  input.value = '';
+  msg.textContent = `${gramm} g ${typ} gespeichert.`;
+  document.getElementById('menge-input').value = '';
+  document.getElementById('fleischart-auswahl').value = '';
 }
 
 function gerichtHinzufuegen() {
@@ -133,17 +143,8 @@ function zeigeStatistik() {
     <li>Hühner: ${tierZaehler.Huhn.toFixed(2)}</li>
     <li>Fische: ${tierZaehler.Fisch.toFixed(2)}</li>
   </ul>
-  <button onclick="resetStatistik()" style="background-color:#c44; color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer;">Statistik zurücksetzen</button>`;
-  
+    
   document.getElementById("page-content").innerHTML = html;
-}
-
-function resetStatistik() {
-  if (confirm('Möchtest du die Statistik wirklich zurücksetzen?')) {
-    tierZaehler = { Rind: 0, Schwein: 0, Huhn: 0 };
-    speichereDaten();
-    zeigeStatistik();
-  }
 }
 
 function ladeDaten() {
