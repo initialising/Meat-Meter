@@ -9,20 +9,20 @@
 </head>
 <body>
   <div class="menu-card-container">
-    <!-- Goldene Ecken außen um den Lederrahmen -->
-    <img src="https://i.imgur.com/ZYZ8bJz.png" class="corner-piece top-right" />
-    <img src="https://i.imgur.com/ZYZ8bJz.png" class="corner-piece bottom-right" />
+    <div class="menu-card">
+      <!-- Goldene Rahmen-Ecken -->
+      <div class="corner-frame-top-right"></div>
+      <div class="corner-frame-bottom-right"></div>
 
-    <!-- Lederrahmen -->
-    <div class="menu-card leather-cover">
-      <!-- Papier-Innenseite -->
-      <div class="menu-card">
-        <div class="tabs" id="tabs-container"></div>
-        <div class="content" id="page-content"></div>
-        <div class="nav-buttons">
-          <button onclick="prevPage()">⬅️</button>
-          <button onclick="nextPage()">➡️</button>
-        </div>
+      <div class="tabs" id="tabs-container">
+        <!-- Tabs werden dynamisch per JS eingefügt -->
+      </div>
+
+      <div class="content" id="page-content"></div>
+
+      <div class="nav-buttons">
+        <button onclick="prevPage()">⬅️</button>
+        <button onclick="nextPage()">➡️</button>
       </div>
     </div>
   </div>
