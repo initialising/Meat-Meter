@@ -1,13 +1,21 @@
-let currentPage = 1; // Start auf Menü-Front
+let currentPage = 1;
 
 let tierZaehler = {
   Rind: 0,
   Schwein: 0,
-  Huhn: 0
+  Huhn: 0,
+  Fisch: 0
+};
+
+const gerichte = {
+  'halbes Hendl': { typ: 'Huhn', gramm: 500 },
+  'Wurstbrot': { typ: 'Schwein', gramm: 100 },
+  'Rindergulasch': { typ: 'Rind', gramm: 200 },
+  'Thunfisch-Sandwich': { typ: 'Fisch', gramm: 150 }
 };
 
 const pages = [
-  ``, // Seite 0 leer
+  ``,
   `<h1 style="text-align:center; font-weight: normal; font-size: 2.5rem; margin-top: 180px;">Menü</h1>`,
   `<h2>Neuigkeiten</h2>
   <ul>
@@ -16,32 +24,38 @@ const pages = [
     <li><strong>Update:</strong> Abzeichen in Bearbeitung </li>
   </ul>`,
   `<h2>Bestellung</h2>
-  <label for="dish-input">Fleischart:</label><br />
-  <input id="dish-input" type="text" placeholder="in Gramm" autocomplete="off" /><br /><br />
+  <label for="dish-input">Fleischart (manuell):</label><br />
+  <input id="dish-input" type="text" placeholder="in Gramm (z. B. Rind)" autocomplete="off" /><br /><br />
   <button onclick="bestellungSpeichern()">Eintragen</button>
+
+  <hr style="margin: 20px 0;" />
+
+  <h3>🍽 Gericht wählen</h3>
+  <select id="gericht-auswahl">
+    <option value="">– bitte wählen –</option>
+    ${Object.keys(gerichte).map(name => `<option value="${name}">${name}</option>`).join('')}
+  </select>
+  <button onclick="gerichtHinzufuegen()">+</button>
+
   <p id="order-msg" style="color: green; margin-top: 10px;"></p>`,
-  ``, // Statistik dynamisch
+  ``, // Statistik kommt dynamisch
   `<h2>Abzeichen</h2>
   <p>Hier erscheinen später deine Erfolge!</p>`
 ];
 
 function showPage(index) {
   currentPage = index;
-
   const menuCard = document.querySelector('.menu-card');
 
   if (index === 1) {
-    // Leder-Cover aktivieren
     menuCard.classList.add('leather-cover');
     document.getElementById("page-content").innerHTML = `
-    <div class="menu-title-wrapper">
-      <div class="menu-title">MENÜ</div>
-    </div>
-  `;
+      <div class="menu-title-wrapper">
+        <div class="menu-title">MENÜ</div>
+      </div>
+    `;
   } else {
-    // Leder-Cover entfernen
     menuCard.classList.remove('leather-cover');
-
     if (index === 4) {
       zeigeStatistik();
     } else {
@@ -64,11 +78,11 @@ function bestellungSpeichern() {
   }
 
   if (fleisch === 'rind') {
-    tierZaehler.Rind++;
+    tierZaehler.Rind += 1;
   } else if (fleisch === 'schwein') {
-    tierZaehler.Schwein++;
+    tierZaehler.Schwein += 1;
   } else if (fleisch === 'huhn') {
-    tierZaehler.Huhn++;
+    tierZaehler.Huhn += 1;
   } else {
     msg.style.color = 'red';
     msg.textContent = 'Nur Rind, Schwein oder Huhn sind erlaubt.';
@@ -76,19 +90,48 @@ function bestellungSpeichern() {
   }
 
   speichereDaten();
-
   msg.style.color = 'green';
-  msg.textContent = `Bestellung für "${input.value.trim()}" wurde gespeichert!`;
+  msg.textContent = `Bestellung für "${input.value}" wurde gespeichert!`;
   input.value = '';
+}
+
+function gerichtHinzufuegen() {
+  const select = document.getElementById('gericht-auswahl');
+  const msg = document.getElementById('order-msg');
+  const gerichtName = select.value;
+
+  if (!gerichtName || !gerichte[gerichtName]) {
+    msg.style.color = 'red';
+    msg.textContent = 'Bitte ein gültiges Gericht wählen.';
+    return;
+  }
+
+  const { typ, gramm } = gerichte[gerichtName];
+  const tiereProGramm = {
+    Rind: 1 / 250000,
+    Schwein: 1 / 60000,
+    Huhn: 1 / 1500,
+    Fisch: 1 / 1500
+  };
+
+  const tiere = gramm * (tiereProGramm[typ] || 0);
+  if (!tierZaehler[typ]) tierZaehler[typ] = 0;
+  tierZaehler[typ] += tiere;
+
+  speichereDaten();
+  msg.style.color = 'green';
+  msg.textContent = `"${gerichtName}" wurde hinzugefügt. (${gramm} g ${typ})`;
+  select.value = '';
 }
 
 function zeigeStatistik() {
   let html = `<h2>Statistik</h2>
-  <p>Anzahl von dir gegessener Tiere</p>
+  <p>Dein Fleischkonsum (in Tieren, gerundet):</p>
   <ul>
-    <li>Rinder: ${tierZaehler.Rind}</li>
-    <li>Schweine: ${tierZaehler.Schwein}</li>
-    <li>Hühner: ${tierZaehler.Huhn}</li>
+    <li>Rinder: ${tierZaehler.Rind.toFixed(2)}</li>
+    <li>Schweine: ${tierZaehler.Schwein.toFixed(2)}</li>
+    <li>Hühner: ${tierZaehler.Huhn.toFixed(2)}</li>
+    <li>Fische: ${tierZaehler.Fisch.toFixed(2)}</li>
   </ul>
   <button onclick="resetStatistik()" style="background-color:#c44; color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer;">Statistik zurücksetzen</button>`;
   
@@ -136,7 +179,6 @@ function updateTabs() {
   ];
 
   tabContainer.innerHTML = '';
-
   tabInfos.forEach(tab => {
     const btn = document.createElement('button');
     btn.textContent = tab.emoji;
@@ -146,7 +188,6 @@ function updateTabs() {
     tabContainer.appendChild(btn);
   });
 
-  // Tabs ganz ausblenden auf Seite 1
   tabContainer.style.display = (currentPage === 1) ? 'none' : 'flex';
 }
 
@@ -154,3 +195,4 @@ window.onload = () => {
   ladeDaten();
   showPage(currentPage);
 };
+
