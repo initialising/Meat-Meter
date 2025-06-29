@@ -10,7 +10,7 @@ body {
   color: #333;
 }
 
-/* Container mit goldenem Rahmen außen */
+/* Container mit braunem Lederhintergrund */
 .menu-card-container {
   position: relative;
   width: 380px;
@@ -24,31 +24,51 @@ body {
   justify-content: center;
   align-items: center;
   box-shadow: 0 0 15px rgba(0,0,0,0.15);
+  z-index: 10;
 }
 
-/* Goldene Ecken außen */
-.corner-piece {
+/* Goldene Ecken – außen um den braunen Rahmen */
+.corner-frame-top-right,
+.corner-frame-bottom-right {
   position: absolute;
   width: 40px;
   height: 40px;
-  z-index: 30;
+  border-right: 4px solid #d4af37;
+  z-index: 20;
   pointer-events: none;
 }
 
-.corner-piece.top-right {
+.corner-frame-top-right {
   top: -2px;
   right: -2px;
   border-top: 4px solid #d4af37;
-  border-right: 4px solid #d4af37;
   border-top-right-radius: 8px;
 }
 
-.corner-piece.bottom-right {
+.corner-frame-bottom-right {
   bottom: -2px;
   right: -2px;
   border-bottom: 4px solid #d4af37;
-  border-right: 4px solid #d4af37;
   border-bottom-right-radius: 8px;
+}
+
+/* Innenliegende Papierkarte */
+.menu-card {
+  width: 360px;
+  height: 540px;
+  background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+  background-repeat: repeat;
+  background-color: #fdf6e3;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  overflow: hidden;
+  position: relative;
+  z-index: 40; /* Wichtig: höher als goldene Ecken */
+  padding: 20px 60px 20px 20px;
+  box-sizing: border-box;
+  font-family: 'Playfair Display', serif;
+  color: #4b3a1b;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Lederkarte */
@@ -65,52 +85,6 @@ body {
   display: block;
   position: relative;
   border: none;
-}
-
-/* Eckrahmen – oben rechts */
-.corner-frame-top-right {
-  position: absolute;
-  top: -2px;
-  right: -2px;
-  width: 40px;
-  height: 40px;
-  border-top: 4px solid #d4af37;
-  border-right: 4px solid #d4af37;
-  border-top-right-radius: 8px;
-  z-index: 20;
-  pointer-events: none;
-}
-
-/* Eckrahmen – unten rechts */
-.corner-frame-bottom-right {
-  position: absolute;
-  bottom: -2px;
-  right: -2px;
-  width: 40px;
-  height: 40px;
-  border-bottom: 4px solid #d4af37;
-  border-right: 4px solid #d4af37;
-  border-bottom-right-radius: 8px;
-  z-index: 20;
-  pointer-events: none;
-}
-
-/* Papierkarte */
-.menu-card {
-  width: 360px;
-  height: 540px;
-  background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
-  background-repeat: repeat;
-  background-color: #fdf6e3;
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
-  overflow: hidden;
-  position: relative;
-  padding: 20px 60px 20px 20px;
-  box-sizing: border-box;
-  font-family: 'Playfair Display', serif;
-  color: #4b3a1b;
-  display: flex;
-  flex-direction: column;
 }
 
 .tabs {
@@ -155,6 +129,8 @@ body {
   padding-right: 10px;
   font-size: 18px;
   line-height: 1.4;
+  display: block;
+  opacity: 1;
 }
 
 .nav-buttons {
