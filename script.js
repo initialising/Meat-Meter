@@ -176,7 +176,7 @@ function zeigeStatistik() {
 
   const html = `
     <h2>Statistik</h2>
-    <p><strong>Gegessene Tiere:<strong></p>
+    <p><strong>Gegessene Tiere<strong></p>
     <ul>
       <li>Rinder: ${tierZaehler.Rind.toFixed(2)}</li>
       <li>Schweine: ${tierZaehler.Schwein.toFixed(2)}</li>
@@ -184,7 +184,7 @@ function zeigeStatistik() {
       <li>Fische: ${tierZaehler.Fisch.toFixed(2)}</li>
     </ul>
 
-    <p><strong>Verbrauch in Kilogramm:</strong></p>
+    <p><strong>Gewicht</strong></p>
     <ul>
       <li>Rind: ${kg.Rind.toFixed(2)} kg</li>
       <li>Schwein: ${kg.Schwein.toFixed(2)} kg</li>
@@ -193,13 +193,13 @@ function zeigeStatistik() {
       <li><strong>Gesamt: ${totalKg.toFixed(2)} kg</strong></li>
     </ul>
 
-    <p><strong>CO₂-Ausstoß (geschätzt):</strong></p>
+    <p><strong>CO₂-Ausstoß:</strong></p>
     <ul>
-      <li>Rind: ${co2.Rind.toFixed(1)} kg CO₂</li>
-      <li>Schwein: ${co2.Schwein.toFixed(1)} kg CO₂</li>
-      <li>Huhn: ${co2.Huhn.toFixed(1)} kg CO₂</li>
-      <li>Fisch: ${co2.Fisch.toFixed(1)} kg CO₂</li>
-      <li><strong>Gesamt: ${totalCo2.toFixed(1)} kg CO₂</strong></li>
+      <li>Rind: ${co2.Rind.toFixed(1)} kg</li>
+      <li>Schwein: ${co2.Schwein.toFixed(1)} kg</li>
+      <li>Huhn: ${co2.Huhn.toFixed(1)} kg</li>
+      <li>Fisch: ${co2.Fisch.toFixed(1)} kg</li>
+      <li><strong>Gesamt: ${totalCo2.toFixed(1)} kg</strong></li>
     </ul>
   `;
 
