@@ -23,32 +23,8 @@ const pages = [
     <li><strong>Event:</strong> Rind gibt 2x Punkte </li>
     <li><strong>Update:</strong> Abzeichen in Bearbeitung </li>
   </ul>`,
-  `<h2>Bestellung</h2>
-    <label for="menge-input">Menge in Gramm:</label><br />
-  <input id="menge-input" type="number" placeholder="z. B. 250" /><br /><br />
-  
-  <label for="fleischart-auswahl">Fleischart:</label><br />
-  <select id="fleischart-auswahl">
-    <option value="">– bitte wählen –</option>
-    <option value="Rind">Rind</option>
-    <option value="Schwein">Schwein</option>
-    <option value="Huhn">Huhn</option>
-    <option value="Fisch">Fisch</option>
-  </select><br /><br />
-  
-  <button onclick="manuelleBestellung()">Eintragen</button>
-
-  <hr style="margin: 20px 0;" />
-
-  <h3>Gericht wählen</h3>
-  <select id="gericht-auswahl">
-    <option value="">– bitte wählen –</option>
-    ${Object.keys(gerichte).map(name => `<option value="${name}">${name}</option>`).join('')}
-  </select>
-  <button onclick="gerichtHinzufuegen()">+</button>
-
-  <p id="order-msg" style="color: green; margin-top: 10px;"></p>`,
-  ``, // Statistik kommt dynamisch
+  ``, // Bestellung wird dynamisch erzeugt
+  ``, // Statistik wird dynamisch erzeugt
   `<h2>Abzeichen</h2>
   <p>Hier erscheinen später deine Erfolge!</p>`
 ];
@@ -66,14 +42,53 @@ function showPage(index) {
     `;
   } else {
     menuCard.classList.remove('leather-cover');
+
     if (index === 4) {
       zeigeStatistik();
+    } else if (index === 3) {
+      zeigeBestellung();
     } else {
       document.getElementById("page-content").innerHTML = pages[index];
     }
   }
 
   updateTabs();
+}
+
+function zeigeBestellung() {
+  const gerichtOptions = Object.keys(gerichte)
+    .map(name => `<option value="${name}">${name}</option>`)
+    .join('');
+
+  const html = `
+    <h2>Bestellung</h2>
+    <label for="menge-input">Menge in Gramm:</label><br />
+    <input id="menge-input" type="number" placeholder="z. B. 250" /><br /><br />
+
+    <label for="fleischart-auswahl">Fleischart:</label><br />
+    <select id="fleischart-auswahl">
+      <option value="">– bitte wählen –</option>
+      <option value="Rind">Rind</option>
+      <option value="Schwein">Schwein</option>
+      <option value="Huhn">Huhn</option>
+      <option value="Fisch">Fisch</option>
+    </select><br /><br />
+
+    <button onclick="manuelleBestellung()">Eintragen</button>
+
+    <hr style="margin: 20px 0;" />
+
+    <h3>Gericht wählen</h3>
+    <select id="gericht-auswahl">
+      <option value="">– bitte wählen –</option>
+      ${gerichtOptions}
+    </select>
+    <button onclick="gerichtHinzufuegen()">+</button>
+
+    <p id="order-msg" style="color: green; margin-top: 10px;"></p>
+  `;
+
+  document.getElementById("page-content").innerHTML = html;
 }
 
 function manuelleBestellung() {
@@ -135,15 +150,59 @@ function gerichtHinzufuegen() {
 }
 
 function zeigeStatistik() {
-  let html = `<h2>Statistik</h2>
-  <p>Dein Fleischkonsum (in Tieren, gerundet):</p>
-  <ul>
-    <li>Rinder: ${tierZaehler.Rind.toFixed(2)}</li>
-    <li>Schweine: ${tierZaehler.Schwein.toFixed(2)}</li>
-    <li>Hühner: ${tierZaehler.Huhn.toFixed(2)}</li>
-    <li>Fische: ${tierZaehler.Fisch.toFixed(2)}</li>
-  </ul>
-    
+  const gramm = {
+    Rind: tierZaehler.Rind * 250000,
+    Schwein: tierZaehler.Schwein * 60000,
+    Huhn: tierZaehler.Huhn * 1500,
+    Fisch: tierZaehler.Fisch * 1500
+  };
+
+  const kg = {
+    Rind: gramm.Rind / 1000,
+    Schwein: gramm.Schwein / 1000,
+    Huhn: gramm.Huhn / 1000,
+    Fisch: gramm.Fisch / 1000
+  };
+
+  const co2 = {
+    Rind: kg.Rind * 27,
+    Schwein: kg.Schwein * 12,
+    Huhn: kg.Huhn * 6.9,
+    Fisch: kg.Fisch * 5
+  };
+
+  const totalKg = kg.Rind + kg.Schwein + kg.Huhn + kg.Fisch;
+  const totalCo2 = co2.Rind + co2.Schwein + co2.Huhn + co2.Fisch;
+
+  const html = `
+    <h2>Statistik</h2>
+    <p>Dein Fleischkonsum (in Tieren, gerundet):</p>
+    <ul>
+      <li>Rinder: ${tierZaehler.Rind.toFixed(2)}</li>
+      <li>Schweine: ${tierZaehler.Schwein.toFixed(2)}</li>
+      <li>Hühner: ${tierZaehler.Huhn.toFixed(2)}</li>
+      <li>Fische: ${tierZaehler.Fisch.toFixed(2)}</li>
+    </ul>
+
+    <p><strong>Verbrauch in Kilogramm:</strong></p>
+    <ul>
+      <li>Rind: ${kg.Rind.toFixed(2)} kg</li>
+      <li>Schwein: ${kg.Schwein.toFixed(2)} kg</li>
+      <li>Huhn: ${kg.Huhn.toFixed(2)} kg</li>
+      <li>Fisch: ${kg.Fisch.toFixed(2)} kg</li>
+      <li><strong>Gesamt: ${totalKg.toFixed(2)} kg</strong></li>
+    </ul>
+
+    <p><strong>CO₂-Ausstoß (geschätzt):</strong></p>
+    <ul>
+      <li>Rind: ${co2.Rind.toFixed(1)} kg CO₂</li>
+      <li>Schwein: ${co2.Schwein.toFixed(1)} kg CO₂</li>
+      <li>Huhn: ${co2.Huhn.toFixed(1)} kg CO₂</li>
+      <li>Fisch: ${co2.Fisch.toFixed(1)} kg CO₂</li>
+      <li><strong>Gesamt: ${totalCo2.toFixed(1)} kg CO₂</strong></li>
+    </ul>
+  `;
+
   document.getElementById("page-content").innerHTML = html;
 }
 
@@ -196,4 +255,3 @@ window.onload = () => {
   ladeDaten();
   showPage(currentPage);
 };
-
