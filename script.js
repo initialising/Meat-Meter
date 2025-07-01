@@ -176,7 +176,7 @@ function zeigeStatistik() {
 
   const html = `
     <h2>Statistik</h2>
-    <p>Dein Fleischkonsum (in Tieren, gerundet):</p>
+    <p><strong>Gegessene Tiere:<strong></p>
     <ul>
       <li>Rinder: ${tierZaehler.Rind.toFixed(2)}</li>
       <li>Schweine: ${tierZaehler.Schwein.toFixed(2)}</li>
