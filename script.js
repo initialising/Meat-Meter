@@ -105,8 +105,8 @@ function manuelleBestellung() {
   const tiereProGramm = {
     Rind: 1 / 250000,
     Schwein: 1 / 60000,
-    Huhn: 1 / 1500,
-    Fisch: 1 / 1500
+    Huhn: 1 / 1200,
+    Fisch: 1 / 360
   };
 
   const tiere = gramm * (tiereProGramm[typ] || 0);
@@ -135,8 +135,8 @@ function gerichtHinzufuegen() {
   const tiereProGramm = {
     Rind: 1 / 250000,
     Schwein: 1 / 60000,
-    Huhn: 1 / 1500,
-    Fisch: 1 / 1500
+    Huhn: 1 / 1200,
+    Fisch: 1 / 360
   };
 
   const tiere = gramm * (tiereProGramm[typ] || 0);
@@ -153,8 +153,8 @@ function zeigeStatistik() {
   const gramm = {
     Rind: tierZaehler.Rind * 250000,
     Schwein: tierZaehler.Schwein * 60000,
-    Huhn: tierZaehler.Huhn * 1500,
-    Fisch: tierZaehler.Fisch * 1500
+    Huhn: tierZaehler.Huhn * 1200,
+    Fisch: tierZaehler.Fisch * 360
   };
 
   const kg = {
@@ -165,9 +165,9 @@ function zeigeStatistik() {
   };
 
   const co2 = {
-    Rind: kg.Rind * 27,
-    Schwein: kg.Schwein * 12,
-    Huhn: kg.Huhn * 6.9,
+    Rind: kg.Rind * 25,
+    Schwein: kg.Schwein * 9,
+    Huhn: kg.Huhn * 7,
     Fisch: kg.Fisch * 5
   };
 
